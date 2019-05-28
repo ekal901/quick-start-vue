@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='https://unpkg.com/vue@2.5.16/dist/vue.js'></script>
+</head>
+<body>
+  <div id="account">
+    Amount: <input type="text" v-model="amount" />
+    <img v-show="amount < 0" src="" alt="error.png" title="minus is not allowed" style="width: 15px; height: 15px; vertical-align: middle">
+  </div>
+  <script type="text/javascript">
+    var simple1 = new Vue({
+      el: '#account',
+      data: {
+        amount: 0
+      }
+    })
+  </script>
+</body>
+</html>

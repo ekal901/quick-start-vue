@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #list { width: 400px; border: 1px solid black; border-collapse:collapse; }
+    #list td, #list th { border: 1px solid black; text-align: center }
+    #list > thead > tr{ color: yellow; background-color: purple; }
+  </style>
+  <script src='https://unpkg.com/vue@2.5.16/dist/vue.js'></script>
+</head>
+<body>
+  <div id="example">
+    <p>
+      Country Name: <input type="text" placeholder="CountryName" v-model="countryname" @input="nameChanged">
+    </p>
+    <table id="list">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Country Name</th>
+          <th>Capital</th>
+          <th>Region</th>
+        </tr>
+      </thead>
+      <tbody id="contacts">
+        <tr v-for="c in filtered">
+          <td>{{c.no}}</td>
+          <td>{{c.name}}</td>
+          <td>{{c.capital}}</td>
+          <td>{{c.region}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script type="text/javascript">
+    var model = {
+      countryname: '',
+      countries: [
+        { no: 1, name: 'USA', 'capital': 'Washington', region: 'america' },
+        { no: 2, name: 'France', 'capital': 'Paris', region: 'europe' },
+        { no: 3, name: 'UK', 'capital': 'London', region: 'europe' },
+        { no: 4, name: 'China', 'capital': 'Beijing', region: 'asia' },
+        { no: 5, name: 'Thailand', 'capital': 'Bangkok', region: 'asia' },
+        { no: 6, name: 'Moroco', 'capital': 'Ravat', region: 'africa' },
+        { no: 7, name: 'Laos', 'capital': 'Vientian', region: 'asia' },
+        { no: 8, name: 'Vietnam', 'capital': 'Hanoi', region: 'asia' },
+        { no: 9, name: 'FIJI', 'capital': 'Suba', region: 'oceania' },
+        { no: 10, name: 'Solomon', 'capital': 'Honiara', region: 'oceania' },
+        { no: 11, name: 'Jameica', 'capital': 'Kingston', region: 'africa' },
+        { no: 12, name: 'Namivia', 'capital': 'vithook', region: 'america' },
+        { no: 13, name: 'Dongtimore', 'capital': 'dily', region: 'asia' },
+        { no: 14, name: 'Mexico', 'capital': 'Mexico City', region: 'america' },
+        { no: 15, name: 'Venesuela', 'capital': 'Karakas', region: 'america' },
+        { no: 16, name: 'Sorthamore', 'capital': 'apea', region: 'oceania' }
+      ]
+    }
+    var clist = new Vue({
+      el: '#example',
+      data: model,
+      computed: {
+        filtered: function() {
+          var cname = this.countryname.trim(); // this는 data객체(이 경우엔 model) 를 가리킴
+          return this.countries.filter(function(item,index) {
+            //콜백 함수안에서의 this 는 global(window 객체를 가리키는)로 쓰임
+            if(item.name.indexOf(cname) > -1) {
+              return true;
+            }
+          });
+        }
+      },
+      methods: {
+        nameChanged: function(e) {
+          this.countryname = e.target.value;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #list { width: 400px; border: 1px solid black; border-collapse:collapse; }
+    #list td, #list th { border: 1px solid black; text-align: center }
+    #list > thead > tr{ color: yellow; background-color: purple; }
+    .divider { height: 2px; background-color: gray; }
+  </style>
+  <script src='https://unpkg.com/vue@2.5.16/dist/vue.js'></script>
+</head>
+<body>
+  <div id="example">
+    <table id="list">
+      <thead>
+        <tr>
+          <th>Num</th>
+          <th>Name</th>
+          <th>CellNumber</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody id="contacts">
+        <template v-for="(contact, idx) in contacts">
+          <tr v-bind:key="contact.no">
+            <td>{{idx + 1}}</td>
+            <td>{{contact.name}}</td>
+            <td>{{contact.tel}}</td>
+            <td>{{contact.address}}</td>
+          </tr>
+          <tr class="divider" v-if="idx % 5 === 4">
+            <td colspan="4"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+  <script type="text/javascript">
+    var model = {
+      "pageno": 1,
+      "pagesize": 10,
+      "totalcount": 100,
+      "contacts": [
+        { "no": 100, "name": "Jessie", "tel": "010-3456-8299", "address": "Seoul" },
+        { "no": 99, "name": "Haeley", "tel": "010-3456-8298", "address": "Seoul" },
+        { "no": 98, "name": "Alex", "tel": "010-3456-8297", "address": "Gyung-gi" },
+        { "no": 97, "name": "Max", "tel": "010-3456-8296", "address": "Jeju" },
+        { "no": 96, "name": "John", "tel": "010-3456-8295", "address": "Seoul" },
+        { "no": 95, "name": "Chuck", "tel": "010-3456-8294", "address": "Gyung-gi" },
+        { "no": 94, "name": "Nate", "tel": "010-3456-8293", "address": "Jeju" }
+      ]
+    };
+
+    var list = new Vue({
+      el: '#example',
+      data: model
+    });
+  </script>
+</body>
+</html>
