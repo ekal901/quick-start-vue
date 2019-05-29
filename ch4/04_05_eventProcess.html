@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>04-05</title>
+  <style>
+    #outer { width: 200px; height: 200px; border: solid 2px black; background-color: cornflowerblue; 
+      position: absolute; top: 100px; left: 50px; padding: 10px; }
+    #inner { width: 100px; height: 100px; border: solid 2px black; background-color: yellowgreen; }
+    #outer1 { width: 200px; height: 200px; border: solid 2px black; background-color: blueviolet; 
+      position: absolute; top: 100px; left: 350px; padding: 10px; }
+    #inner1 { width: 100px; height: 100px; border: solid 2px black; background-color: darkkhaki; }
+  </style>
+  <script src='https://unpkg.com/vue@2.5.16/dist/vue.js'></script>
+</head>
+<body>
+  <div id="example">
+    <div id="outer" @click="outerClick">
+      <div id="inner" @click="innerClick"></div>
+    </div>
+  </div>
+  <div id="example1">
+      <div id="outer1" @click.capture.stop="outerClick">
+        <div id="inner1" @click.stop="innerClick"></div>
+      </div>
+    </div>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#example',
+      methods: {
+        outerClick: function(e) {
+          console.log('### outer click ###');
+          console.log('event Phase: ' + e.eventPhase);
+          console.log(e.currentTarget); //inner 이벤트의 전파로 인해 실행된 outer 요소 정보
+          console.log(e.target); //이벤트가 일어난 원본 요소
+          // e.stopPropagation();
+        },
+        innerClick: function(e) {
+          console.log('### inner click ###');
+          console.log('event Phase: ' + e.eventPhase);
+          console.log(e.currentTarget);
+          console.log(e.target);
+          // e.stopPropagation();
+        }
+      }
+    })
+    var vm1 = new Vue({
+      el: '#example1',
+      methods: {
+        outerClick: function(e) {
+          console.log('### outer click ###');
+          console.log('event Phase: ' + e.eventPhase);
+          console.log(e.currentTarget); //inner 이벤트의 전파로 인해 실행된 outer 요소 정보
+          console.log(e.target); //이벤트가 일어난 원본 요소
+        },
+        innerClick: function(e) {
+          console.log('### inner click ###');
+          console.log('event Phase: ' + e.eventPhase);
+          console.log(e.currentTarget);
+          console.log(e.target);
+        }
+      }
+    })
+  </script>
+</body>
+</html>

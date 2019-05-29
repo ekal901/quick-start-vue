@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>04-01</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    .layout1 { margin: 30px; }
+  </style>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+  <div id="example" class="container layout1">
+    <p><input type="text" class="form-control" v-model="amount"></p>
+    <p>
+      <button id="deposit" class="btn btn-primary" v-on:click="balance += parseInt(amount)">deposit</button>
+      <button id="withdraw" class="btn btn-warning" v-on:click="balance -= parseInt(amount)">withdraw</button>
+    </p>
+    <h3>Account Balance: {{balance}}</h3>
+  </div>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#example',
+      data: {
+        amount: 0,
+        balance: 0
+      }
+    })
+  </script>
+</body>
+</html>
