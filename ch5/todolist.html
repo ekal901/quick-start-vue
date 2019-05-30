@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ToDoList</title>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    ul li {
+      cursor: pointer;
+      position: relative;
+      padding: 8px 8px 8px 40px;
+      background: #eee;
+      font-size: 14px;
+      transition: 0.2s;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="todolistapp">
+    <div id="header" class="header">
+      <h2>ToDO List App</h2>
+      <input type="text" class="input" id="task" placeholder="type, then enter">
+      <span class="addbutton">ADD</span>
+    </div>
+    <ul id="todolist">
+      <li>
+        <span>Task 1</span>
+        <span class="close">&#x00D7;</span>
+      </li>
+      <li class="checked">
+        <span>Task 2</span>
+        <span>(completed)</span>
+        <span class="close">&#x00D7;</span>
+      </li>
+      <li>
+        <span>Task 3</span>
+        <span class="close">&#x00D7;</span></li>
+    </ul>
+  </div>
+</body>
+</html>

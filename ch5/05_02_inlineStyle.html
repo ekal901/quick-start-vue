@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05-02</title>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+  <div id="example">
+    <!-- 1. 데이터 속성인 style1으로 바인딩 -->
+    <button id="btn" v-bind:style="style1" @mouseover.stop="overEvent"
+    @mouseout.stop="outEvent">Test</button>
+    <!-- 2. 개별 속성 하나하나 바인딩 (비추) -->
+    <div v-bind:style="{ backgroundColor: a.bc, border: a.bd, width: a.w+'px', height:a.h+'px' }"></div>
+    <!-- 3. 여러개의 스타일 객체 적용 -->
+    <button id="btn1" v-bind:style="[ myColor, myLayout ]">Button1</button>
+  </div>
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#example',
+      data: {
+        style1: {
+          backgroundColor: 'aqua',
+          border: 'solid 1px gray',
+          width: '100px',
+          textAlign: 'center'
+        },
+        a: {
+          bc: 'yellow', bd: 'solid 1px gray', w: 200, h: 100
+        },
+        myColor: { backgroundColor: 'purple', color: 'yellow' },
+        myLayout: { width: '150px', height: '80px', textAlign: 'center' }
+      },
+      methods: {
+        overEvent: function(e) {
+          this.style1.backgroundColor="purple";
+          this.style1.color = "yellow";
+        },
+        outEvent: function(e) {
+          this.style1.backgroundColor="aqua";
+          this.style1.color = "black";
+        }
+      }
+    })
+  </script>
+</body>
+</html>
