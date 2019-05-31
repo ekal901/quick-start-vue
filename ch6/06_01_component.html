@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-01</title>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<script type="text/javascript">
+  // 1. inline Template 방식
+  Vue.component('hello-component', {
+    template: '<div>Hello World!!</div>'
+  });
+
+  // 2. Template 문자열 분리
+  Vue.component('hello-component1', {
+    template: '#helloTemplate1'
+  });
+
+  // 3. x-template
+  Vue.component('hello-component2', {
+    template: '#helloTemplate2'
+  });
+</script>
+<body>
+  <div id="app">
+    <!-- 1. inline Template 방식 -->
+    <hello-component></hello-component>
+    <hello-component1></hello-component1>
+    <hello-component2></hello-component2>
+  </div>
+
+  <!-- 2. Template 문자열 분리 -->
+  <template id="helloTemplate1">
+    <div>Hello World1!!</div>
+  </template>
+  
+  <!-- 3. x-template -->
+  <script type="text/x-template" id="helloTemplate2">
+    <div>Hello World2!!</div>
+  </script>
+</body>
+<script type="text/javascript">
+  var v = new Vue({
+    el: '#app'
+  });
+</script>
+</html>

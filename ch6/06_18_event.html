@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-18</title>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<!-- Child Component -->
+<style>
+  .buttonstyle {
+    width: 120px;
+    height: 30px;
+    text-align: center;
+  }
+</style>
+<template id="childTemplate">
+  <div>
+    <button class="buttonstyle" @click="clickEvent" :data-lang="buttonInfo.value">{{buttonInfo.text}}</button>
+  </div>
+</template>
+<script type="text/javascript">
+  Vue.component('child-component', {
+    template: '#childTemplate',
+    props: [ 'buttonInfo' ],
+    methods: {
+      clickEvent: function(e) {
+        this.$emit('timeclick', e.target.innerText, e.target.dataset.lang);
+      }
+    }
+  })
+</script>
+<!-- // Child Component -->
+<!-- Parent Component -->
+<template id="parent-template">
+  <div>
+    <child-component v-for="s in buttons" :button-info="s"
+      v-on:timeclick="timeclickEvent"></child-component>
+    <hr />
+    <div>{{msg}}</div>
+  </div>
+</template>
+<script type="text/javascript">
+  Vue.component('parent-component', {
+    template: '#parent-template',
+    props: [ 'buttons' ],
+    data: function() {
+      return {msg: ''}
+    },
+    methods: {
+      timeclickEvent: function(k, v) {
+        this.msg = k + ', '+v;
+      }
+    }
+  })
+</script>
+<!-- // Parent Component -->
+<body>
+  <div id="app">
+    <parent-component :buttons="buttons"></parent-component>
+  </div>
+</body>
+<script type="text/javascript">
+Vue.config.devtools = true;
+var vm = new Vue({
+  el: '#app',
+  data: {
+    buttons: [
+      { text: 'Hello', value: 'English' },
+      { text: 'NiHao', value: 'Chinese' },
+      { text: 'Hallo', value: 'German' }
+    ]
+  }
+})
+</script>
+</html>

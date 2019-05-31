@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-12</title>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<template id="listTemplate">
+  <li>{{myMessage}} : {{count}} : {{countries}} </li>
+</template>
+<script type="text/javascript">
+  Vue.component('list-component', {
+    template: '#listTemplate',
+    // props: [ 'myMessage' ]
+    props: { //속성에 대한 엄격한 유효성 검증을 하는경우 객체 형태로 사용
+      myMessage: { type: String, default: '안녕하세요' },
+      count: { type: Number, required: true },
+      countries : {
+        type: Array,
+        default: function() {
+          return ['South Korea']; //배열 default 값 함수의 리턴값으로 부여
+        }
+      }
+    }
+  })
+</script>
+<body>
+  <div id="app">
+    <ul>
+      <!-- kebab casing 사용에 주의 -->
+      <!-- attribute는 대소문자 구분을 하지 않기 때문에 -->
+      <list-component my-message="Hello" v-bind:count="100" :countries="['USA', 'UK', 'Austrailia']"></list-component> 
+      <list-component my-message="곤니찌와" :count="21" :countries="['Japan']"></list-component>
+      <list-component my-message="Hallo" :countries="['Germany']"></list-component>
+      <list-component :count="1000"></list-component>
+    </ul>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.devtools = true;
+  var vm = new Vue({
+    el: '#app'
+  })
+</script>
+</html>

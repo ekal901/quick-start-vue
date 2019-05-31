@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-17</title>
+  <style>
+    #list { 
+      width: 400px;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    #list tr , #list th {
+      border: 1px solid black;
+      text-align: center;
+    }
+    #list > thead > tr {
+      color: white;
+      background-color: cornflowerblue;
+    }
+  </style>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<template id="listTemplate">
+  <div>
+    <table id="list">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Name</th>
+          <th>Tel</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody id="contacts">
+        <tr v-for="contact in contacts">
+          <td>{{contact.no}}</td>
+          <td>{{contact.name}}</td>
+          <td>{{contact.tel}}</td>
+          <td>{{contact.address}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+<script type="text/javascript">
+  Vue.component('contactlist-component', {
+    template: '#listTemplate',
+    props: [ 'contacts' ]
+  })
+</script>
+<body>
+  <div id="app">
+    <h1>예방접종</h1>
+    <hr />
+    <h3>1차 대상자: May 1~3</h3>
+    <contactlist-component :contacts="list1"></contactlist-component>
+    <h3>2차 대상자: May 13~15</h3>
+    <contactlist-component :contacts="list2"></contactlist-component>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.devtools = true;
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      list1: [
+        { "no": 97, "name": "bonnie", "tel": "010-3456-8296", "address": 'UT'},
+        { "no": 96, "name": "cathy", "tel": "010-3456-8295", "address": 'WA'},
+        { "no": 95, "name": "evan", "tel": "010-3456-8294", "address": 'CA'}
+      ],
+      list2: [
+        { "no": 82, "name": "Rogers", "tel": "010-3456-8293", "address": 'NV'},
+        { "no": 81, "name": "Daniel", "tel": "010-3456-8292", "address": 'CA'},
+        { "no": 80, "name": "Michael", "tel": "010-3456-8291", "address": 'CO'}
+      ]
+    }
+  })
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-09</title>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<template id="timeTemplate">
+  <div>
+    <span>{{nowTS}}</span>
+    <button @click="timeClick">current Time</button>
+  </div>
+</template>
+<script type="text/javascript">
+  Vue.component('time-component', {
+    template: '#timeTemplate',
+    data () { 
+      return { nowTS: 0 } //동일한 컴포넌트가 여러번 사용되더라도 함수가 호출될때마다 만들어진 객체가 리턴
+    },
+    methods: {
+      timeClick: function(e) {
+        this.nowTS = (new Date()).getTime();
+      }
+    }
+  })
+</script>
+<body>
+  <div id="app">
+    <time-component></time-component>
+    <time-component></time-component>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.devtools = true;
+  var v = new Vue({
+    el: '#app'
+  })
+</script>
+</html>
