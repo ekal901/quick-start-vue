@@ -24,14 +24,14 @@ export default {
     axios.get(CONF.FETCH_ONE.replace("${no}", payload.no))
       .then((response) => {
         // 편집하기 위한 단일 연락처 데이터 받아 온 후 
-        // commit 사용해서, mutations에서 불러온 값 전달하여 state에 반영  
-        store.commit(Constant.EDIT_CONTACT_FORM, response.data);
+        // commit 사용해서, mutations에서 불러온 값 전달하여 state에 반영
+        store.commit(Constant.EDIT_CONTACT_FORM, { contact: response.data });
       })
   },
-  [Constant.UPDATE_CONTACT]: (store, payload) => {
+  [Constant.UPDATE_CONTACT]: (store) => {
     let currentPageNo = store.state.contactlist.pageno;
     let contact = store.state.contact;
-    axios.put(CONF.UPDATE.replace("${no}", payload.no), contact)
+    axios.put(CONF.UPDATE.replace("${no}", contact.no), contact)
       .then((response) => {
         if (response.data.status == "success") {
           store.dispatch(Constant.CANCEL_FORM);
@@ -44,15 +44,13 @@ export default {
   [Constant.EDIT_PHOTO_FORM]: (store, payload) => {
     axios.get(CONF.FETCH_ONE.replace("${no}", payload.no))
       .then((response) => {
-        if (response.data.status == "success") {
-          store.commit(Constant.EDIT_PHOTO_FORM, { contact: response.data });
-        }
+        store.commit(Constant.EDIT_PHOTO_FORM, { contact: response.data });
       })
   },
   [Constant.UPDATE_PHOTO]: (store, payload) => {
-    let currentPageNo = store.contactlist.pageno;
+    let currentPageNo = store.state.contactlist.pageno;
     let data = new FormData();
-    data.append(payload.file);
+    data.append('photo', payload.file);
     axios.post(CONF.UPDATE_PHOTO.replace("${no}", payload.no), data)
       .then(() => {
         store.dispatch(Constant.CANCEL_FORM);
@@ -60,16 +58,17 @@ export default {
       })
   },
   [Constant.FETCH_CONTACTS]: (store, payload) => {
-    let pageno;
+    var pageno;
     if (typeof payload === "undefined" || typeof payload.pageno === "undefined") {
       pageno = 1;
     } else {
-      pageno = payload.contactlist.pageno;
+      pageno = payload.pageno;
     }
-    let pagesize = store.state.contactlist.pagesize;
+    var pagesize = store.state.contactlist.pagesize;
     axios.get(CONF.FETCH, {
       params: { pageno: pageno, pagesize: pagesize }
     }).then((response) => {
+      console.log(response.data);
       store.commit(Constant.FETCH_CONTACTS, { contactlist: response.data });
     })
   },
@@ -78,7 +77,7 @@ export default {
   },
   [Constant.DELETE_CONTACT]: (store, payload) => {
     let currentPageNo = store.state.contactlist.pageno;
-    axios.delete(CONF.DELETE_CONTACT.replace("${no}", payload.no))
+    axios.delete(CONF.DELETE.replace("${no}", payload.no))
       .then(() => {
         store.dispatch(Constant.FETCH_CONTACTS, { pageno: currentPageNo })
       })

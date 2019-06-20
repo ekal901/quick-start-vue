@@ -1,3 +1,4 @@
+// src/components/ContactList.vue
 <template>
   <div>
     <p class="addnew">
@@ -45,12 +46,12 @@
 </template>
 
 <script>
-import eventBus from "../EventBus.js";
+import Constant from "../Constant";
+import { mapState } from "vuex";
 import paginate from "vuejs-paginate";
 export default {
   name: "contactList",
   components: { paginate },
-  props: ["contactlist"],
   computed: {
     totalpage() {
       return (
@@ -58,28 +59,34 @@ export default {
           (this.contactlist.totalcount - 1) / this.contactlist.pagesize
         ) + 1
       );
-    }
+    },
+    ...mapState(["contactlist"])
   },
   watch: {
     ["contactlist.pageno"]: function() {
       this.$refs.pagebuttons.selected = this.contactlist.pageno - 1;
     }
   },
+  mounted() {
+    this.$store.dispatch(Constant.FETCH_CONTACTS, { pageno: 1 });
+  },
   methods: {
     pageChanged(page) {
-      eventBus.$emit("pageChanged", page);
+      this.$store.dispatch(Constant.FETCH_CONTACTS, { pageno: page });
     },
     addContact() {
-      eventBus.$emit("addContactForm");
-    },
-    editPhoto(no) {
-      eventBus.$emit("editPhoto", no);
+      this.$store.dispatch(Constant.ADD_CONTACT_FORM);
     },
     editContact(no) {
-      eventBus.$emit("editContactForm", no);
+      this.$store.dispatch(Constant.EDIT_CONTACT_FORM, { no: no });
     },
     deleteContact(no) {
-      eventBus.$emit("deleteContact", no);
+      if (confirm("Are you sure you want to delete?")) {
+        this.$store.dispatch(Constant.DELETE_CONTACT, { no: no });
+      }
+    },
+    editPhoto(no) {
+      this.$store.dispatch(Constant.EDIT_PHOTO_FORM, { no: no });
     }
   }
 };

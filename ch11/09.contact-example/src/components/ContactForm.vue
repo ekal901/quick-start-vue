@@ -42,24 +42,11 @@
 </template>
 
 <script>
-import eventBus from "../EventBus.js";
+import Constant from "../Constant";
+import { mapState } from "vuex";
+
 export default {
   name: "contactForm",
-  props: {
-    mode: {
-      type: String,
-      default: "add"
-    },
-    contact: {
-      type: Object,
-      default: function() {
-        return { no: "", name: "", tel: "", address: "", photo: "" };
-      }
-    }
-  },
-  mounted() {
-    this.$refs.name.focus();
-  },
   computed: {
     headingText() {
       if (this.mode != "update") {
@@ -74,22 +61,27 @@ export default {
       } else {
         return "UPDATE";
       }
-    }
+    },
+    ...mapState(["mode", "contact"])
+  },
+  mounted() {
+    this.$refs.name.focus();
   },
   methods: {
     cancelEvent() {
-      eventBus.$emit("cancel");
+      this.$store.dispatch(Constant.CANCEL_FORM);
     },
     submitEvent() {
       if (this.mode == "update") {
-        eventBus.$emit("updateSubmit", this.contact);
+        this.$store.dispatch(Constant.UPDATE_CONTACT);
       } else {
-        eventBus.$emit("addSubmit", this.contact);
+        this.$store.dispatch(Constant.ADD_CONTACT);
       }
     }
   }
 };
 </script>
+
 <style scoped>
 .modal {
   display: block;
