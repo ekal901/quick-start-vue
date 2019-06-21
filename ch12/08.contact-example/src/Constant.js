@@ -4,6 +4,7 @@ export default {
   FETCH_CONTACTS: "fetchContacts",
   FETCH_CONTACT_ONE: 'fetchContactOne',
   INITIALIZE_CONTACT_ONE: "initializeContactOne",
+  CHANGE_ISLOADING: "changeIsLoading",
 
   // USE ONLY ACTIONS
   ADD_CONTACT: "addContact",
