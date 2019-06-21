@@ -1,4 +1,4 @@
-# 02.dynamic-route
+# contacts-example
 
 ## Project setup
 ```
