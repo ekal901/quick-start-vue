@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>01_03.transtionWrapperComponent</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <style>
+      .box {
+        margin: 10px;
+      }
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: opacity 0.5s;
+      }
+      .fade-error,
+      .fade-leave-to {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div @click="changeVisible" class="box">
+        <button>show Toggle</button>
+      </div>
+      <div class="box">
+        <transition name="fade">
+          <img src="bard.jpg" v-if="visible" />
+        </transition>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.devtools = true;
+    var v = new Vue({
+      el: "#app",
+      data() {
+        return {
+          visible: true
+        };
+      },
+      methods: {
+        changeVisible() {
+          this.visible = !this.visible;
+        }
+      }
+    });
+  </script>
+</html>
