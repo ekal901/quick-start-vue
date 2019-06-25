@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>04_01.transitionEventHook</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <style>
+      .box {
+        margin: 10px;
+      }
+      .elastic-enter-active {
+        animation: elastic-in 0.5s;
+      }
+      .elastic-leave-active {
+        animation: elastic-in 0.5s reverse;
+      }
+      @keyframes elastic-in {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        70% {
+          transform: scale(1.2);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="box">
+        <button @click="changeVisible" :disabled="!buttonEnabled">show Toggle</button>
+      </div>
+      <div class="box">
+        <transition name="elastic"
+          @before-enter="elasticBeforeEnter"
+          @after-enter="elasticAfterEnter"
+          @before-leave="elasticBeforeLeave"
+          @after-leave="elasticAfterLeave"
+        >
+          <img src="../bard.jpg" v-if="visible" />
+        </transitionname="elastic">
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    Vue.config.devtools = true;
+    var v = new Vue({
+      el: "#app",
+      data() {
+        return {
+          visible: true,
+          buttonEnabled: true
+        };
+      },
+      methods: {
+        changeVisible() {
+          this.visible = !this.visible;
+        },
+        elasticBeforeEnter() {
+          console.log(" ** elasticBeforeEnter **");
+          this.buttonEnabled = false;
+        },
+        elasticAfterEnter() {
+          console.log(" ** elasticAfterEnter **");
+          this.buttonEnabled = true;
+        },
+        elasticBeforeLeave() {
+          console.log(" ** elasticBeforeLeave **");
+          this.buttonEnabled = false;
+        },
+        elasticAfterLeave() {
+          console.log(" ** elasticAfterLeave **");
+          this.buttonEnabled = true;
+        }
+      },
+    });
+  </script>
+</html>
