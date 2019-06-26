@@ -1,6 +1,7 @@
-// pages/contacts/_no.vue
+// pages/contacts/_no/index.vue
 <template>
   <div>
+    <hr class="divider">
     <h1>Contact Detail</h1>
     <div>
       <table class="detail table table-bordered">
@@ -39,6 +40,11 @@ export default {
   created() {
     var no = this.$route.params.no;
     this.$store.commit(Constant.CHANGE_NO, { no: no });
+  },
+  beforeRouteUpdate(to, from, next) {
+    var no = to.params.no;
+    this.$store.commit(Constant.CHANGE_NO, { no: no });
+    next();
   }
 };
 </script>

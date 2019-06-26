@@ -1,4 +1,4 @@
-// pages/contacts/index.vue
+// pages/contacts.vue
 <template>
   <div>
     <h1>Contact</h1>
@@ -7,6 +7,7 @@
         <nuxt-link :to="'/contacts/'+c.no">{{c.name}}</nuxt-link>
       </div>
     </div>
+    <nuxt-child></nuxt-child>
   </div>
 </template>
 <script>

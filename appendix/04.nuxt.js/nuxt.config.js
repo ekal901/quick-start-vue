@@ -1,3 +1,4 @@
+// nuxt.config.js
 module.exports = {
   head: {
     link: [
@@ -7,5 +8,6 @@ module.exports = {
         href: 'https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css'
       }
     ]
-  }
+  },
+  css: ['assets/transition.css']
 }
