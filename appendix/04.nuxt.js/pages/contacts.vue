@@ -14,6 +14,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "contacts",
+  transition: "elastic",
   computed: mapGetters({
     contacts: "getContacts"
   })
